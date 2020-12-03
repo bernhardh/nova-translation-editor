@@ -1,0 +1,30 @@
+{
+    "name": "bernhardh/nova-translation-editor",
+    "description": "Laravel Nova translation editor",
+    "keywords": [
+        "laravel",
+        "nova"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": ">=7.3.0",
+        "spatie/laravel-translation-loader": ">=2.6.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Bernhardh\\NovaTranslationEditor\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Bernhardh\\NovaTranslationEditor\\ToolServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
