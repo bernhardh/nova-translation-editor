@@ -14,7 +14,26 @@
         </div>
       </nav>
 
-      <div v-for="(translation, group) in translations" v-show="currentGroup === group" :key="group + 'tab'">
+      <div v-for="(translation, group) in translations" v-if="currentGroup === group" :key="group + 'tab'">
+        <div class="flex border-b-2 border-50">
+          <div class="w-1/5 px-8 py-2">
+            <label for="name" class="inline-block text-80 pt-2 leading-tight">{{ __('Filter') }}</label>
+          </div>
+          <div class="w-4/5 py-2 px-8 relative">
+            <span
+                v-if="filterString"
+                @click="filterString = ''"
+                class="cursor-pointer text-primary absolute clear-filter-icon"
+                :title="__('Clear filter')">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            </span>
+            <input type="text"
+                   :placeholder="__('Filter') + ': By key or translation'"
+                   class="w-full form-control form-input form-input-bordered"
+                   v-model="filterString">
+          </div>
+        </div>
+
         <table class="table w-full">
           <thead>
             <tr>
@@ -24,7 +43,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(trans, key) in translation">
+            <tr v-for="(trans, key) in filterdCurrentTranslations">
               <td class="text-left py-2">
                 {{ key }}
                 <p class="text-xs	mt-2 text-dark-grey">{{ group}}.{{ key}}</p>
@@ -79,7 +98,8 @@ export default {
       currentGroup: null,
       showNewModal: false,
       loaded: false,
-      languages: []
+      languages: [],
+      filterString: ''
     }
   },
   mounted() {
@@ -88,6 +108,32 @@ export default {
   computed: {
     existingKeys() {
       return Object.keys(this.translations[this.currentGroup]);
+    },
+    filterdCurrentTranslations() {
+      const current = this.translations[this.currentGroup];
+      let filtered = {};
+
+      if(this.filterString) {
+        for(let prop in current) {
+          const row = current[prop];
+
+          if(prop.search(this.filterString) >= 0) {
+            filtered[prop] = row;
+          }
+
+          for(let lang in row) {
+            const trans = row[lang];
+            if(trans.search(this.filterString) >= 0) {
+              filtered[prop] = row;
+            }
+          }
+        }
+      }
+      else {
+        filtered = current;
+      }
+
+      return filtered;
     },
     showTable() {
       return this.translations && Object.keys(this.translations).length > 0;
@@ -132,3 +178,10 @@ export default {
   }
 }
 </script>
+
+<style>
+.clear-filter-icon {
+  right: 2.5rem;
+  top: 1rem;
+}
+</style>

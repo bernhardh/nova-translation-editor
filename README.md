@@ -1,16 +1,17 @@
 # Nova Translation Editor
 
-This is a laravel nova package to manage/edit your translations and it depends on `spatie/laravel-translation-loader`.
+This is a laravel nova package to manage/edit your translations. It depends on `spatie/laravel-translation-loader`.
 
 ![screenshot](https://raw.githubusercontent.com/bernhardh/nova-translation-editor/master/docs/screenshot.png)
 
 ## Features
 
-- Decide which translation group/file you wanna make editable (`auth`, `validation`, etc.)
+- Decide which translation group/file you want to make editable (`auth`, `validation`, etc.)
 - Add new keys to the translation group
 - Save all changes at once or only from current tab
 - Multiple languages support
 - Respects you own theme colors
+- Filter the table by key or translation 
 
 ## Installation
 
