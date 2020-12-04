@@ -2,8 +2,8 @@
   <div>
     <heading class="mb-6">{{ title }}</heading>
 
-    <card v-if="translations" class="my-6">
-      <nav class="bg-white px-8 pt-2 border-b">
+    <card v-if="showTable" class="my-6">
+      <nav class="bg-white px-8 pt-2 border-b-2 border-50">
         <div class="-mb-px flex justify-center cursor-pointer">
           <a v-for="(translation, group) in translations" :key="group"
               :class="currentGroup === group ? 'text-primary border-primary' : ' text-grey border-transparent'"
@@ -37,13 +37,13 @@
           </tbody>
         </table>
 
-        <div class="text-center m-3">
+        <div class="text-center p-3">
           <button class="btn btn-default btn-primary" @click="showNewModal = true">Add row</button>
         </div>
       </div>
     </card>
 
-    <div class="text-right my-2" v-if="translations">
+    <div class="text-right my-2" v-if="showTable">
       <a class="btn btn-link dim cursor-pointer text-80 ml-auto mr-6 router-link-active nova-router-link nova-cancel-button"
         @click="$router.go()">
         {{ __('Cancel') }}
@@ -52,9 +52,9 @@
       <button class="btn btn-default btn-primary" type="button" @click="save">{{ __('Save all') }}</button>
     </div>
 
-    <div v-if="!translations" class="toasted nova error">
-      <p>You have not translation groups (aka translation file) activated in your `config/nova-translation-editor.php` config file.</p>
-      <p>Please add a group to the `groups` array element (for example `auth`, `validation`, etc.).</p>
+    <div v-if="!showTable && loaded" class="toasted nova error">
+      <p class="mb-2">You have not translation groups (aka translation file) activated in your `config/nova-translation-editor.php` config file.</p>
+      <p>Please add at least one group to the `groups` array element (for example `auth`, `validation`, etc.).</p>
     </div>
 
     <add-row-modal :group="currentGroup" :existing-keys="existingKeys" v-if="showNewModal" @close="showNewModal = false" @create="addRow"></add-row-modal>
@@ -78,6 +78,7 @@ export default {
       translations: null,
       currentGroup: null,
       showNewModal: false,
+      loaded: false,
       languages: []
     }
   },
@@ -87,11 +88,15 @@ export default {
   computed: {
     existingKeys() {
       return Object.keys(this.translations[this.currentGroup]);
+    },
+    showTable() {
+      return this.translations && Object.keys(this.translations).length > 0;
     }
   },
   methods: {
     getData() {
       Nova.request().get(this.apiUrl + 'index').then(response => {
+        this.loaded = true;
         if (response.data && response.data.translations) {
           this.translations = response.data.translations;
           this.languages = response.data.languages;
