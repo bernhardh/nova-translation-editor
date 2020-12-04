@@ -59,3 +59,9 @@ Here you can set which groups you want to show in the editor. You can add as man
 ##### languages
 
 Here you set, which languages you use. Default is `en`, but you can set other languages like `de` for german or `es` for spanish, etc.
+
+## Filter
+
+You can filter each tab after key AND any string in your translation:
+
+![screenshot](https://raw.githubusercontent.com/bernhardh/nova-translation-editor/master/docs/filter.gif)
