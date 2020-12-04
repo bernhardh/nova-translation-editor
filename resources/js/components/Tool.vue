@@ -43,13 +43,18 @@
       </div>
     </card>
 
-    <div class="text-right my-2">
+    <div class="text-right my-2" v-if="translations">
       <a class="btn btn-link dim cursor-pointer text-80 ml-auto mr-6 router-link-active nova-router-link nova-cancel-button"
         @click="$router.go()">
         {{ __('Cancel') }}
       </a>
       <button class="btn btn-default btn-primary mr-3" type="button" @click="save(currentGroup)">{{ __('Save') }} "{{ currentGroup}}"</button>
       <button class="btn btn-default btn-primary" type="button" @click="save">{{ __('Save all') }}</button>
+    </div>
+
+    <div v-if="!translations" class="toasted nova error">
+      <p>You have not translation groups (aka translation file) activated in your `config/nova-translation-editor.php` config file.</p>
+      <p>Please add a group to the `groups` array element (for example `auth`, `validation`, etc.).</p>
     </div>
 
     <add-row-modal :group="currentGroup" :existing-keys="existingKeys" v-if="showNewModal" @close="showNewModal = false" @create="addRow"></add-row-modal>
