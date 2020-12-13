@@ -3,7 +3,7 @@
     <heading class="mb-6">{{ title }}</heading>
 
     <card v-if="showTable" class="my-6">
-      <nav class="bg-white px-8 pt-2 border-b-2 border-50">
+      <nav class="bg-white px-8 pt-2 border-b-2 border-50 overflow-x-auto overflow-y-hidden">
         <div class="-mb-px flex justify-center cursor-pointer">
           <a v-for="(translation, group) in translations" :key="group"
               :class="currentGroup === group ? 'text-primary border-primary' : ' text-grey border-transparent'"
@@ -34,7 +34,7 @@
           </div>
         </div>
 
-        <table class="table w-full">
+        <table class="table overflow-x-auto">
           <thead>
             <tr>
               <th class="text-left w-1/5">Key</th>
@@ -179,9 +179,12 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .clear-filter-icon {
   right: 2.5rem;
   top: 1rem;
+}
+table {
+  display: block;
 }
 </style>

@@ -65,3 +65,7 @@ Here you set, which languages you use. Default is `en`, but you can set other la
 You can filter each tab after key AND any string in your translation:
 
 ![screenshot](https://raw.githubusercontent.com/bernhardh/nova-translation-editor/master/docs/filter.gif)
+
+## Changelog
+
+Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
