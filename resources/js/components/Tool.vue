@@ -22,15 +22,13 @@
     </div>
 
     <card v-if="showTable" class="my-6">
-      <nav class="bg-white px-8 pt-2 border-b-2 border-50 overflow-x-auto overflow-y-hidden">
-        <div class="-mb-px flex justify-center cursor-pointer">
+      <nav class="bg-white px-8 pt-2 border-b-2 border-50 overflow-x-auto overflow-y-hidden text-center cursor-pointer whitespace-nowrap">
           <a v-for="(translation, group) in filterdTranslations" :key="group"
               :class="currentGroup === group ? 'text-primary border-primary' : ' text-grey border-transparent'"
               class="no-underline border-b-2 uppercase tracking-wide font-bold text-s py-3 mx-2 px-3 inline-block"
               @click="currentGroup = group">
             {{ group }}&nbsp;({{ Object.keys(translation).length }})
           </a>
-        </div>
       </nav>
 
       <div v-for="(translation, group) in filterdTranslations" v-if="currentGroup === group" :key="group + 'tab'">
@@ -214,5 +212,8 @@ table {
 }
 textarea {
   min-width: 220px;
+}
+.whitespace-nowrap {
+  white-space: nowrap;
 }
 </style>
