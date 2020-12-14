@@ -31,13 +31,12 @@
           </a>
       </nav>
 
-      <div v-for="(translation, group) in filterdTranslations" v-if="currentGroup === group" :key="group + 'tab'">
-        <table class="table overflow-x-auto">
+      <div v-for="(translation, group) in filterdTranslations" v-if="currentGroup === group" :key="group + 'tab'" class="overflow-x-auto">
+        <table class="table w-full">
           <thead>
           <tr>
-            <th class="text-left w-1/5">Key</th>
+            <th class="text-left">Key</th>
             <th class="text-left" v-for="lang in languages">Translation&nbsp;{{ lang }}</th>
-            <th class="hidden"></th>
           </tr>
           </thead>
           <tbody>
@@ -47,9 +46,8 @@
               <p class="text-xs	mt-2 text-dark-grey">{{ group}}.{{ key}}</p>
             </td>
             <td class="text-left" v-for="lang in languages">
-              <textarea type="text" class="w-full form-input form-input-bordered py-3 m-1 h-auto" v-model="trans[lang]" />
+              <textarea class="w-full form-input form-input-bordered py-3 m-1 h-auto" v-model="trans[lang]" />
             </td>
-            <td class="hidden"></td>
           </tr>
           </tbody>
         </table>
@@ -206,9 +204,6 @@ export default {
 .clear-filter-icon {
   right: 2.5rem;
   top: 1rem;
-}
-table {
-  display: block;
 }
 textarea {
   min-width: 220px;
