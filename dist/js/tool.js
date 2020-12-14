@@ -1093,7 +1093,28 @@ var render = function() {
                                   create: _vm.addRow
                                 }
                               })
-                            : _vm._e()
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-default btn-primary mr-3",
+                              attrs: { type: "button" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.save(_vm.currentGroup)
+                                }
+                              }
+                            },
+                            [
+                              _vm._v(
+                                _vm._s(_vm.__("Save")) +
+                                  ' "' +
+                                  _vm._s(_vm.currentGroup) +
+                                  '"'
+                              )
+                            ]
+                          )
                         ],
                         1
                       )
@@ -1124,27 +1145,13 @@ var render = function() {
             _c(
               "button",
               {
-                staticClass: "btn btn-default btn-primary mr-3",
+                staticClass: "btn btn-default btn-primary",
                 attrs: { type: "button" },
                 on: {
                   click: function($event) {
-                    return _vm.save(_vm.currentGroup)
+                    return _vm.save()
                   }
                 }
-              },
-              [
-                _vm._v(
-                  _vm._s(_vm.__("Save")) + ' "' + _vm._s(_vm.currentGroup) + '"'
-                )
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-default btn-primary",
-                attrs: { type: "button" },
-                on: { click: _vm.save }
               },
               [_vm._v(_vm._s(_vm.__("Save all")))]
             )

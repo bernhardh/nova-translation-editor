@@ -59,6 +59,7 @@
         <div class="text-center p-3">
           <button class="btn btn-default btn-primary" @click="showNewModal = true">Add row</button>
           <add-row-modal :group="currentGroup" :existing-keys="existingKeys" v-if="showNewModal" @close="showNewModal = false" @create="addRow"></add-row-modal>
+          <button class="btn btn-default btn-primary mr-3" type="button" @click="save(currentGroup)">{{ __('Save') }} "{{ currentGroup }}"</button>
         </div>
       </div>
     </card>
@@ -68,8 +69,7 @@
         @click="$router.go()">
         {{ __('Cancel') }}
       </a>
-      <button class="btn btn-default btn-primary mr-3" type="button" @click="save(currentGroup)">{{ __('Save') }} "{{ currentGroup}}"</button>
-      <button class="btn btn-default btn-primary" type="button" @click="save">{{ __('Save all') }}</button>
+      <button class="btn btn-default btn-primary" type="button" @click="save()">{{ __('Save all') }}</button>
     </div>
 
     <div v-if="!showTable && loaded" class="toasted nova error">
