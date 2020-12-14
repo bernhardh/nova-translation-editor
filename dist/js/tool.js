@@ -631,6 +631,10 @@ module.exports = function normalizeComponent (
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AddRowModal__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AddRowModal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__AddRowModal__);
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 //
 //
 //
@@ -712,9 +716,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: { AddRowModal: __WEBPACK_IMPORTED_MODULE_0__AddRowModal___default.a },
   metaInfo: function metaInfo() {
     return {
       title: this.title + ' - ' + this.currentGroup
@@ -807,7 +814,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       for (var i in this.languages) {
         row[this.languages[i]] = '';
       }
-      this.translations[this.currentGroup][name] = row;
+      if (_typeof(this.translations[this.currentGroup]) === 'object') {
+        this.translations[this.currentGroup] = {};
+      }
+      this.$set(this.translations[this.currentGroup], name, row);
       this.showNewModal = false;
     },
     save: function save(group) {
@@ -1063,61 +1073,41 @@ var render = function() {
                         )
                       ]),
                       _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "text-center p-3" },
-                        [
-                          _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-default btn-primary",
-                              on: {
-                                click: function($event) {
-                                  _vm.showNewModal = true
-                                }
+                      _c("div", { staticClass: "text-center p-3" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-default btn-primary",
+                            on: {
+                              click: function($event) {
+                                _vm.showNewModal = true
                               }
-                            },
-                            [_vm._v("Add row")]
-                          ),
-                          _vm._v(" "),
-                          _vm.showNewModal
-                            ? _c("add-row-modal", {
-                                attrs: {
-                                  group: _vm.currentGroup,
-                                  "existing-keys": _vm.existingKeys
-                                },
-                                on: {
-                                  close: function($event) {
-                                    _vm.showNewModal = false
-                                  },
-                                  create: _vm.addRow
-                                }
-                              })
-                            : _vm._e(),
-                          _vm._v(" "),
-                          _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-default btn-primary mr-3",
-                              attrs: { type: "button" },
-                              on: {
-                                click: function($event) {
-                                  return _vm.save(_vm.currentGroup)
-                                }
+                            }
+                          },
+                          [_vm._v("Add row")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-default btn-primary mr-3",
+                            attrs: { type: "button" },
+                            on: {
+                              click: function($event) {
+                                return _vm.save(_vm.currentGroup)
                               }
-                            },
-                            [
-                              _vm._v(
-                                _vm._s(_vm.__("Save")) +
-                                  ' "' +
-                                  _vm._s(_vm.currentGroup) +
-                                  '"'
-                              )
-                            ]
-                          )
-                        ],
-                        1
-                      )
+                            }
+                          },
+                          [
+                            _vm._v(
+                              _vm._s(_vm.__("Save")) +
+                                ' "' +
+                                _vm._s(_vm.currentGroup) +
+                                '"'
+                            )
+                          ]
+                        )
+                      ])
                     ])
                   : _vm._e()
               })
@@ -1158,6 +1148,21 @@ var render = function() {
           ])
         : _vm._e(),
       _vm._v(" "),
+      _vm.showNewModal
+        ? _c("add-row-modal", {
+            attrs: {
+              group: _vm.currentGroup,
+              "existing-keys": _vm.existingKeys
+            },
+            on: {
+              close: function($event) {
+                _vm.showNewModal = false
+              },
+              create: _vm.addRow
+            }
+          })
+        : _vm._e(),
+      _vm._v(" "),
       !_vm.showTable && _vm.loaded
         ? _c("div", { staticClass: "toasted nova error" }, [
             _c("p", { staticClass: "mb-2" }, [
@@ -1184,6 +1189,276 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-68ff5483", module.exports)
+  }
+}
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(12)
+}
+var normalizeComponent = __webpack_require__(8)
+/* script */
+var __vue_script__ = __webpack_require__(14)
+/* template */
+var __vue_template__ = __webpack_require__(15)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-2cead4ce"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/AddRowModal.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-2cead4ce", Component.options)
+  } else {
+    hotAPI.reload("data-v-2cead4ce", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(13);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(6)("5703dfd6", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-2cead4ce\",\"scoped\":true,\"hasInlineConfig\":true}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AddRowModal.vue", function() {
+     var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-2cead4ce\",\"scoped\":true,\"hasInlineConfig\":true}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AddRowModal.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(5)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 14 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "AddRowModal",
+  props: {
+    group: {},
+    existingKeys: {}
+  },
+  data: function data() {
+    return {
+      keyName: ''
+    };
+  },
+
+  methods: {
+    handleClose: function handleClose() {
+      this.$emit('close');
+    },
+    handleSubmit: function handleSubmit() {
+      this.keyName = this.keyName.trim();
+      if (this.existingKeys.indexOf(this.keyName) != -1) {
+        this.$toasted.show('This key is already in use', { type: 'error' });
+      } else {
+        this.$emit('create', this.keyName);
+      }
+    }
+  },
+  /**
+   * Mount the component.
+   */
+  mounted: function mounted() {
+    this.$refs.keyNameInput.focus();
+  }
+});
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("modal", [
+    _c(
+      "form",
+      {
+        staticClass: "bg-white rounded-lg shadow-lg overflow-hidden",
+        attrs: { autocomplete: "off" },
+        on: {
+          submit: function($event) {
+            $event.preventDefault()
+            return _vm.handleSubmit($event)
+          }
+        }
+      },
+      [
+        _c(
+          "div",
+          [
+            _c(
+              "heading",
+              {
+                staticClass: "border-b border-40 py-4 px-2",
+                attrs: { level: 2 }
+              },
+              [
+                _vm._v(
+                  _vm._s(_vm.__("Create")) + ' "' + _vm._s(_vm.group) + '"'
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "p-3" }, [
+              _c(
+                "label",
+                {
+                  staticClass:
+                    "inline-block text-80 mb-2 leading-tight nova-form-label"
+                },
+                [_vm._v(_vm._s(_vm.__("Key of new translation")))]
+              ),
+              _c("br"),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.keyName,
+                    expression: "keyName"
+                  }
+                ],
+                ref: "keyNameInput",
+                staticClass:
+                  "w-full form-control form-input form-input-bordered",
+                attrs: { type: "text", required: "" },
+                domProps: { value: _vm.keyName },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.keyName = $event.target.value
+                  }
+                }
+              })
+            ])
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "bg-30 px-6 py-3 flex" }, [
+          _c("div", { staticClass: "flex items-center ml-auto" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn text-80 font-normal h-9 px-3 mr-3 btn-link",
+                attrs: { type: "button" },
+                on: { click: _vm.handleClose }
+              },
+              [_vm._v("\n          " + _vm._s(_vm.__("Cancel")) + "\n        ")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-default btn-primary",
+                attrs: { type: "submit" }
+              },
+              [_c("span", [_vm._v(_vm._s(_vm.__("Create")))])]
+            )
+          ])
+        ])
+      ]
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-2cead4ce", module.exports)
   }
 }
 

@@ -58,7 +58,6 @@
 
         <div class="text-center p-3">
           <button class="btn btn-default btn-primary" @click="showNewModal = true">Add row</button>
-          <add-row-modal :group="currentGroup" :existing-keys="existingKeys" v-if="showNewModal" @close="showNewModal = false" @create="addRow"></add-row-modal>
           <button class="btn btn-default btn-primary mr-3" type="button" @click="save(currentGroup)">{{ __('Save') }} "{{ currentGroup }}"</button>
         </div>
       </div>
@@ -72,6 +71,8 @@
       <button class="btn btn-default btn-primary" type="button" @click="save()">{{ __('Save all') }}</button>
     </div>
 
+    <add-row-modal :group="currentGroup" :existing-keys="existingKeys" v-if="showNewModal" @close="showNewModal = false" @create="addRow"></add-row-modal>
+
     <div v-if="!showTable && loaded" class="toasted nova error">
       <p class="mb-2">You have not translation groups (aka translation file) activated in your `config/nova-translation-editor.php` config file.</p>
       <p>Please add at least one group to the `groups` array element (for example `auth`, `validation`, etc.).</p>
@@ -82,7 +83,9 @@
 <script>
 
 
+import AddRowModal from "./AddRowModal";
 export default {
+  components: {AddRowModal},
   metaInfo() {
     return {
       title: this.title + ' - ' + this.currentGroup
@@ -175,7 +178,10 @@ export default {
       for(let i in this.languages) {
         row[this.languages[i]] = '';
       }
-      this.translations[this.currentGroup][name] = row;
+      if(typeof this.translations[this.currentGroup] === 'object') {
+        this.translations[this.currentGroup] = {}
+      }
+      this.$set(this.translations[this.currentGroup], name, row);
       this.showNewModal = false;
     },
 
