@@ -71,13 +71,15 @@ class NovaTranslationEditorController extends Controller
      */
     public function save(Request $request)
     {
-        collect($request->post('data'))->each(function ($group, $groupKey) {
-            collect($group)->each(function($row, $key) use ($groupKey) {
-                LanguageLine::updateOrCreate([
+        $translationModel = app(config('translation-loader.model'));
+
+        collect($request->post('data'))->each(function ($group, $groupKey) use ($translationModel) {
+            collect($group)->each(function ($row, $key) use ($groupKey, $translationModel) {
+                $translationModel::updateOrCreate([
                     'group' => $groupKey,
-                    'key' => $key,
+                    'key'   => $key,
                 ], [
-                    'text' => $row
+                    'text' => $row,
                 ]);
             });
         });
