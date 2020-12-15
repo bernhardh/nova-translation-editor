@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.2] - 2020-12-15
+
+### Fixed
+- Fixing issue #2 possibility to use custom table instead of language_lines
+
+## [1.2.1] - 2020-12-14
+
+### Fixed
+- Add missing doc images
+
 ## [1.2.0] - 2020-12-14
 
 ### Added
