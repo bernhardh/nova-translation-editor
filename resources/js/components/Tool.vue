@@ -46,7 +46,7 @@
               <p class="text-xs	mt-2 text-dark-grey">{{ group}}.{{ key}}</p>
             </td>
             <td class="text-left" v-for="lang in languages">
-              <textarea class="w-full form-input form-input-bordered py-3 m-1 h-auto" v-model="trans[lang]" />
+              <textarea class="w-full form-input form-input-bordered py-3 m-1 h-auto" v-model="trans[lang]" @input="translationChanged(group, key, lang, $event)" />
             </td>
           </tr>
           </tbody>
@@ -92,6 +92,7 @@ export default {
       title: 'Nova Translation Editor',
       apiUrl: '/nova-vendor/nova-translation-editor/',
       translations: null,
+      changedTranslations: [],
       currentGroup: null,
       showNewModal: false,
       loaded: false,
@@ -183,11 +184,12 @@ export default {
 
     save(group) {
       let data = {};
+
       if(group) {
-        data[group] = this.translations[group]
+        data[group] = this.changedTranslations[group]
       }
       else {
-        data = this.translations;
+        data = this.changedTranslations;
       }
 
       Nova.request().post(this.apiUrl + 'save', {data: data}).then(response => {
@@ -195,6 +197,12 @@ export default {
       }).catch(error => {
         this.$toasted.show(error, {type: 'error'});
       });
+    },
+
+    translationChanged(group, key, lang, event) {
+        this.changedTranslations[group] = this.changedTranslations[group] || {};
+        this.changedTranslations[group][key] = this.changedTranslations[group][key] || this.translations[group][key];
+        this.changedTranslations[group][key][lang] = event.target.value;
     }
   }
 }
