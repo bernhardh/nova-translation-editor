@@ -189,7 +189,9 @@ export default {
         data[group] = this.changedTranslations[group]
       }
       else {
-        data = this.changedTranslations;
+        for(let i in this.changedTranslations) {
+          data[i] = this.changedTranslations[i]
+        }
       }
 
       Nova.request().post(this.apiUrl + 'save', {data: data}).then(response => {
