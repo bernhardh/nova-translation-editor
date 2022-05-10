@@ -2,9 +2,11 @@
 
 namespace Bernhardh\NovaTranslationEditor;
 
-use Illuminate\View\View;
+use Laravel\Nova\Menu\MenuSection;
 use Laravel\Nova\Nova;
 use Laravel\Nova\Tool;
+use Illuminate\Http\Request;
+
 
 class NovaTranslationEditor extends Tool
 {
