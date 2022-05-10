@@ -21,82 +21,112 @@
       </div>
     </div>
 
-    <card v-if="showTable" class="my-6">
-      <nav class="bg-white px-8 pt-2 border-b-2 border-50 overflow-x-auto overflow-y-hidden text-center cursor-pointer whitespace-nowrap">
-          <a v-for="(translation, group) in filterdTranslations" :key="group"
-              :class="currentGroup === group ? 'text-primary border-primary' : ' text-grey border-transparent'"
-              class="no-underline border-b-2 uppercase tracking-wide font-bold text-s py-3 mx-2 px-3 inline-block"
-              @click="currentGroup = group">
-            {{ group }}&nbsp;({{ Object.keys(translation).length }})
-          </a>
+    <Card v-if="showTable" class="my-6 rounded-md mb-8">
+      <nav
+          class="flex flex-col md:flex-row md:items-center md:justify-center pt-2 border-b border-gray-200 dark:border-gray-700">
+        <a v-for="(translation, group) in filterdTranslations" :key="group"
+           :class="currentGroup === group ? 'text-primary-500 border-primary-500' : ' text-grey border-transparent'"
+           class="no-underline border-b-2 uppercase tracking-wide font-bold text-s py-3 mx-2 px-3 inline-block"
+           @click="currentGroup = group">
+          {{ group }}&nbsp;({{ Object.keys(translation).length }})
+        </a>
       </nav>
+      <template v-for="(translation, group) in filterdTranslations">
 
-      <div v-for="(translation, group) in filterdTranslations" v-if="currentGroup === group" :key="group + 'tab'" class="overflow-x-auto">
-        <table class="table w-full">
-          <thead>
-          <tr>
-            <th class="text-left">Key</th>
-            <th class="text-left" v-for="lang in languages">Translation&nbsp;{{ lang }}</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr v-for="(trans, key) in translation">
-            <td class="text-left py-2">
-              {{ key }}
-              <p class="text-xs	mt-2 text-dark-grey">{{ group}}.{{ key}}</p>
-            </td>
-            <td class="text-left" v-for="lang in languages">
-              <textarea class="w-full form-input form-input-bordered py-3 m-1 h-auto" v-model="trans[lang]" @input="translationChanged(group, key, lang, $event)" />
-            </td>
-          </tr>
-          </tbody>
-        </table>
+        <div v-if="currentGroup === group" :key="group + 'tab'"
+             class="overflow-x-auto">
+          <table class="table w-full">
+            <thead class="bg-gray-50 dark:bg-gray-800">
+            <tr>
+              <th class="text-left px-2 whitespace-nowrap uppercase text-gray-500 text-xxs tracking-wide py-2">Key</th>
+              <th class="text-left px-2 whitespace-nowrap uppercase text-gray-500 text-xxs tracking-wide py-2"
+                  v-for="lang in languages">Translation&nbsp;{{ lang }}
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="(trans, key) in translation">
+              <td class="px-2 py-2 border-t border-gray-100 dark:border-gray-700 whitespace-nowrap cursor-pointer dark:bg-gray-800 group-hover:bg-gray-50 dark:group-hover:bg-gray-900">
+                {{ key }}
+                <p class="text-xs	mt-2 text-dark-grey">{{ group }}.{{ key }}</p>
+              </td>
+              <td class="px-2 py-2 border-t border-gray-100 dark:border-gray-700 whitespace-nowrap cursor-pointer dark:bg-gray-800 group-hover:bg-gray-50 dark:group-hover:bg-gray-900"
+                  v-for="lang in languages">
+              <textarea class="w-full form-input form-input-bordered py-3 m-1 h-auto" v-model="trans[lang]"
+                        @input="translationChanged(group, key, lang, $event)"/>
+              </td>
+            </tr>
+            </tbody>
+          </table>
 
-        <div class="text-center p-3">
-          <button class="btn btn-default btn-primary" @click="showNewModal = true">Add row</button>
-          <button class="btn btn-default btn-primary mr-3" type="button" @click="save(currentGroup)">{{ __('Save') }} "{{ currentGroup }}"</button>
+          <div class="flex flex-col md:flex-row justify-center space-y-2 md:space-y-0 space-x-3 mb-2">
+            <LoadingButton
+                dusk="create-button"
+                type="button"
+                @click="showNewModal = true"
+                :loading="false"
+            >
+              {{ __('Add new row') }}
+            </LoadingButton>
+
+            <LoadingButton
+                dusk="create-button"
+                type="button"
+                :loading="! loaded"
+                @click="save(currentGroup)"
+            >{{ __('Save') }}
+              "{{ currentGroup }}"
+            </LoadingButton>
+          </div>
         </div>
-      </div>
-    </card>
+      </template>
+    </Card>
 
-    <div class="text-right my-2" v-if="showTable">
-      <a class="btn btn-link dim cursor-pointer text-80 ml-auto mr-6 router-link-active nova-router-link nova-cancel-button"
-        @click="$router.go()">
+    <div
+        class="flex flex-col md:flex-row md:items-center justify-center md:justify-end space-y-2 md:space-y-0 space-x-3"
+        v-if="showTable"
+    >
+      <CancelButton
+          class="appearance-none bg-transparent font-bold text-gray-400 hover:text-gray-300 active:text-gray-500 dark:text-gray-500 dark:hover:text-gray-400 dark:active:text-gray-600 dark:hover:bg-gray-800 cursor-pointer rounded text-sm font-bold focus:outline-none focus:ring inline-flex items-center justify-center h-9 px-3 appearance-none bg-transparent font-bold text-gray-400 hover:text-gray-300 active:text-gray-500 dark:text-gray-500 dark:hover:text-gray-400 dark:active:text-gray-600 dark:hover:bg-gray-800"
+          @click="$router.go()">
         {{ __('Cancel') }}
-      </a>
-      <button class="btn btn-default btn-primary" type="button" @click="save()">{{ __('Save all') }}</button>
+      </CancelButton>
+
+      <LoadingButton
+          dusk="create-all-button"
+          type="button"
+          @click="save"
+          :loading="!loaded"
+      >
+        {{ __('Save all') }}
+      </LoadingButton>
     </div>
 
-    <add-row-modal :group="currentGroup" :existing-keys="existingKeys" v-if="showNewModal" @close="showNewModal = false" @create="addRow"></add-row-modal>
+    <add-row-modal :group="currentGroup" :existing-keys="existingKeys" v-if="showNewModal" @close="showNewModal = false"
+                   @create="addRow"></add-row-modal>
 
     <div v-if="!showTable && loaded" class="toasted nova error">
-      <p class="mb-2">You have not translation groups (aka translation file) activated in your `config/nova-translation-editor.php` config file.</p>
+      <p class="mb-2">You have not translation groups (aka translation file) activated in your
+        `config/nova-translation-editor.php` config file.</p>
       <p>Please add at least one group to the `groups` array element (for example `auth`, `validation`, etc.).</p>
     </div>
   </div>
 </template>
 
 <script>
-
-
 import AddRowModal from "./AddRowModal";
+
 export default {
   components: {AddRowModal},
-  metaInfo() {
-    return {
-      title: this.title + ' - ' + this.currentGroup
-    };
-  },
+  props: ['translations', 'languages', 'group'],
   data: () => {
     return {
       title: 'Nova Translation Editor',
       apiUrl: '/nova-vendor/nova-translation-editor/',
-      translations: null,
       changedTranslations: [],
       currentGroup: null,
       showNewModal: false,
       loaded: false,
-      languages: [],
       useTabs: true,
       filterString: ''
     }
@@ -139,14 +169,12 @@ export default {
   },
   methods: {
     getData() {
-      Nova.request().get(this.apiUrl + 'index').then(response => {
-        this.loaded = true;
-        if (response.data && response.data.translations) {
-          this.translations = response.data.translations;
-          this.languages = response.data.languages;
-          this.currentGroup = Object.keys(this.translations)[0];
-        }
-      });
+      this.loaded = true;
+
+      this.currentGroup = Object.keys(this.translations)[0];
+
+      console.log(this.currentGroup)
+
     },
 
     search(value, key) {
@@ -183,6 +211,7 @@ export default {
     },
 
     save(group) {
+      this.loaded = false;
       let data = {};
 
       if(group) {
@@ -195,9 +224,11 @@ export default {
       }
 
       Nova.request().post(this.apiUrl + 'save', {data: data}).then(response => {
-        this.$toasted.show('Saved', {type: 'success'});
+        this.loaded = true;
+
+        Nova.success('Saved')
       }).catch(error => {
-        this.$toasted.show(error, {type: 'error'});
+        Nova.error(error)
       });
     },
 

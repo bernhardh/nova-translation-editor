@@ -1,7 +1,5 @@
-Nova.booting((Vue, router, store) => {
-    router.addRoutes([{
-        name: 'nova-translation-editor',
-        path: '/nova-translation-editor',
-        component: require('./components/Tool'),
-    }])
-})
+import Tool from './components/Tool';
+
+Nova.booting((app, store) => {
+    Nova.inertia('NovaTranslationEditor', Tool)
+});
