@@ -31,6 +31,6 @@ class NovaTranslationEditor extends Tool
     {
         return MenuSection::make('Languages')
             ->path('nova-translation-editor/index')
-            ->icon('server');
+            ->icon('translate');
     }
 }
