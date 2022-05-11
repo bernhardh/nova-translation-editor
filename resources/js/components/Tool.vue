@@ -1,6 +1,6 @@
 <template>
   <div>
-    <heading class="mb-6">{{ title }}</heading>
+    <Heading class="mb-6">{{ title }}</Heading>
 
     <div class="flex border-b-2 border-50">
       <div class="w-1/5 px-8 py-2">
@@ -102,8 +102,14 @@
       </LoadingButton>
     </div>
 
-    <add-row-modal :group="currentGroup" :existing-keys="existingKeys" v-if="showNewModal" @close="showNewModal = false"
-                   @create="addRow"></add-row-modal>
+    <add-row-modal
+        :group="currentGroup"
+        :existing-keys="existingKeys"
+        v-if="showNewModal"
+        @close="showNewModal = false"
+        @createCancelled="showNewModal = false"
+        @create="addRow"
+    />
 
     <div v-if="!showTable && loaded" class="toasted nova error">
       <p class="mb-2">You have not translation groups (aka translation file) activated in your
@@ -118,12 +124,13 @@ import AddRowModal from "./AddRowModal";
 
 export default {
   components: {AddRowModal},
-  props: ['translations', 'languages', 'group'],
+  props: ['initialTranslations', 'languages', 'group'],
   data: () => {
     return {
       title: 'Nova Translation Editor',
       apiUrl: '/nova-vendor/nova-translation-editor/',
       changedTranslations: [],
+      translations: [],
       currentGroup: null,
       showNewModal: false,
       loaded: false,
@@ -132,7 +139,7 @@ export default {
     }
   },
   mounted() {
-    this.getData();
+    this.loadData();
   },
   computed: {
     existingKeys() {
@@ -168,9 +175,10 @@ export default {
     },
   },
   methods: {
-    getData() {
+    loadData() {
       this.loaded = true;
 
+      this.translations = this.initialTranslations;
       this.currentGroup = Object.keys(this.translations)[0];
 
       console.log(this.currentGroup)
@@ -203,10 +211,8 @@ export default {
       for(let i in this.languages) {
         row[this.languages[i]] = '';
       }
-      if(typeof this.translations[this.currentGroup] === 'object') {
-        this.translations[this.currentGroup] = {}
-      }
-      this.$set(this.translations[this.currentGroup], name, row);
+
+      this.translations[this.currentGroup][name] = row;
       this.showNewModal = false;
     },
 
