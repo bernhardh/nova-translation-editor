@@ -7,7 +7,7 @@
     ],
     "license": "MIT",
     "require": {
-        "php": ">=7.3",
+        "php": ">=7.3.0",
         "spatie/laravel-translation-loader": ">=2.7.0"
     },
     "autoload": {
