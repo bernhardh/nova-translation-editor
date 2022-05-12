@@ -6,8 +6,8 @@ This is a laravel nova package to manage/edit your translations. It depends on `
 
 ## Nova Versions
 
-For Nova 3.X use version 1.x of this package
-For Nova 4.X use version 2.x of this package
+- For Nova 3.X use version 1.x of this package
+- For Nova 4.X use version 2.x of this package
 
 ## Features
 
