@@ -185,7 +185,7 @@ export default {
     save(group) {
       let data = {};
 
-      if(group) {
+      if(group && typeof group == "string") {
         data[group] = this.changedTranslations[group]
       }
       else {
