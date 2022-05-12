@@ -4,6 +4,11 @@ This is a laravel nova package to manage/edit your translations. It depends on `
 
 ![screenshot](https://raw.githubusercontent.com/bernhardh/nova-translation-editor/master/docs/screenshot.png)
 
+## Nova Versions
+
+For Nova 3.X use version 1.x of this package
+For Nova 4.X use version 2.x of this package
+
 ## Features
 
 - Decide which translation group/file you want to make editable (`auth`, `validation`, etc.)
