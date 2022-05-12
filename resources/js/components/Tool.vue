@@ -220,7 +220,7 @@ export default {
       this.loaded = false;
       let data = {};
 
-      if(group) {
+      if(group && typeof group == "string") {
         data[group] = this.changedTranslations[group]
       }
       else {
