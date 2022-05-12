@@ -20,10 +20,6 @@ class ToolServiceProvider extends ServiceProvider
             $this->routes();
         });
 
-        Nova::serving(function (ServingNova $event) {
-            $this->loadViewsFrom(__DIR__.'/../resources/views', 'nova-translation-editor');
-        });
-
         $this->publishes([
             __DIR__.'/../config/nova-translation-editor.php' => config_path('nova-translation-editor.php'),
         ]);
@@ -40,13 +36,16 @@ class ToolServiceProvider extends ServiceProvider
             return;
         }
 
-        Route::middleware([
-            'nova',
-            //Authorize::class,
-        ])->prefix('nova-vendor/nova-translation-editor')->group(function () {
-            Route::get('/index', [NovaTranslationEditorController::class, 'index']);
-            Route::post('/save', [NovaTranslationEditorController::class, 'save']);
-        });
+        Nova::router(['nova'], 'nova-translation-editor')
+            ->group(function () {
+                Route::get('/index', [NovaTranslationEditorController::class, 'index']);
+            });
+
+        Route::middleware(['nova'])
+            ->prefix('nova-vendor/nova-translation-editor')
+            ->group(function () {
+                Route::post('/save', [NovaTranslationEditorController::class, 'save']);
+            });
     }
 
     /**

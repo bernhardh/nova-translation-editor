@@ -2,9 +2,11 @@
 
 namespace Bernhardh\NovaTranslationEditor;
 
-use Illuminate\View\View;
+use Laravel\Nova\Menu\MenuSection;
 use Laravel\Nova\Nova;
 use Laravel\Nova\Tool;
+use Illuminate\Http\Request;
+
 
 class NovaTranslationEditor extends Tool
 {
@@ -15,16 +17,20 @@ class NovaTranslationEditor extends Tool
      */
     public function boot()
     {
-        Nova::script('nova-translation-editor', __DIR__.'/../dist/js/tool.js');
+        Nova::script('nova-translation-editor', __DIR__ . '/../dist/js/tool.js');
+        Nova::style('nova-translation-editor', __DIR__ . '/../dist/css/tool.css');
     }
 
     /**
-     * Build the view that renders the navigation links for the tool.
+     * Build the menu that renders the navigation links for the tool.
      *
-     * @return View
+     * @param  \Illuminate\Http\Request  $request
+     * @return mixed
      */
-    public function renderNavigation()
+    public function menu(Request $request)
     {
-        return view('nova-translation-editor::navigation');
+        return MenuSection::make('Languages')
+            ->path('nova-translation-editor/index')
+            ->icon('translate');
     }
 }

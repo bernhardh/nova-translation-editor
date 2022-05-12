@@ -39,7 +39,10 @@ class NovaTranslationEditorController extends Controller
             }
         }
 
-        return $response;
+        return inertia('NovaTranslationEditor', [
+            'initialTranslations' => $response['translations'],
+            'languages' => $response['languages'],
+        ]);
     }
 
     /**
