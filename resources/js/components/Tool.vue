@@ -92,6 +92,7 @@ export default {
       title: 'Nova Translation Editor',
       apiUrl: '/nova-vendor/nova-translation-editor/',
       translations: null,
+      originalTranslations: null,
       changedTranslations: [],
       currentGroup: null,
       showNewModal: false,
@@ -121,7 +122,7 @@ export default {
 
           for(let key in group) {
             for(let lang in group[key]) {
-              const text = group[key][lang],
+              const text = this.originalTranslations[groupName][key][lang],
                 reg = new RegExp(this.filterString, 'i');
               if(text.match(reg) || key.match(reg)) {
                 filtered[groupName][key] = group[key];
@@ -143,6 +144,7 @@ export default {
         this.loaded = true;
         if (response.data && response.data.translations) {
           this.translations = response.data.translations;
+          this.originalTranslations = JSON.parse(JSON.stringify(response.data.translations));
           this.languages = response.data.languages;
           this.currentGroup = Object.keys(this.translations)[0];
         }
@@ -196,6 +198,7 @@ export default {
 
       Nova.request().post(this.apiUrl + 'save', {data: data}).then(response => {
         this.$toasted.show('Saved', {type: 'success'});
+        this.getData()
       }).catch(error => {
         this.$toasted.show(error, {type: 'error'});
       });
