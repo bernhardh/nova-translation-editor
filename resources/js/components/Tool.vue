@@ -180,9 +180,6 @@ export default {
 
       this.translations = this.initialTranslations;
       this.currentGroup = Object.keys(this.translations)[0];
-
-      console.log(this.currentGroup)
-
     },
 
     search(value, key) {
