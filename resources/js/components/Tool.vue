@@ -23,7 +23,7 @@
 
     <Card v-if="showTable" class="my-6 rounded-md mb-8">
       <nav
-          class="flex flex-col md:flex-row md:items-center md:justify-center pt-2 border-b border-gray-200 dark:border-gray-700 overflow-scroll">
+          class="flex flex-col md:flex-row md:items-center md:justify-center pt-2 border-b border-gray-200 dark:border-gray-700 overflow-x-auto">
         <a v-for="(translation, group) in filterdTranslations" :key="group"
            :class="currentGroup === group ? 'text-primary-500 border-primary-500' : ' text-grey border-transparent'"
            class="no-underline border-b-2 uppercase tracking-wide font-bold text-s py-3 mx-2 px-3 inline-block"
